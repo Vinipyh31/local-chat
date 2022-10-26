@@ -1,0 +1,49 @@
+.room-id-page {
+    padding: 15px;
+}
+
+.back-button {
+    padding: 5px 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+    display: block;
+}
+
+.chat-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.chat {
+    border-radius: 20px;
+    border: 1px solid black;
+    padding: 15px;
+    min-width: 600px;
+}
+
+.chat__messages {
+    border-radius: 20px;
+    border: 1px solid black;
+    padding: 15px;
+    height: 500px;
+    overflow-y: scroll;
+}
+
+.message {
+    background: rgba(236, 236, 236, 0.3);
+    padding: 10px 10px 10px 25px;
+    margin-bottom: 5px;
+    border-radius: 15px;
+}
+
+.message__sender-name {
+    color: turquoise;
+    text-align: right;
+}
+
+.message__time {
+    text-align: right;
+    font-size: 12px;
+}
+
