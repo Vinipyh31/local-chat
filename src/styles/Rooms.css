@@ -1,0 +1,70 @@
+header {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-evenly;
+    column-gap: 10px;
+}
+
+.btn {
+    padding: 10px;
+    border-radius: 15px;
+    border: none;
+    background-color: #fff;
+    font-size: 20px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+}
+
+.delete-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.rooms-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+}
+
+.modal {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.modal > .btn {
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.modal__text-input {
+    border: none;
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.description {
+    min-width: 300px;
+    min-height: 150px;
+}
+
+textarea, input {
+    outline: none;
+}
+
+.small-text {
+    font-size: 11px;
+    color: red;
+}
+
+.instruction {
+    margin-top: 20px;
+    text-align: center;
+}
+
+svg {
+    cursor: pointer;
+}
+
+

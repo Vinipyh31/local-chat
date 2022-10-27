@@ -5,15 +5,20 @@
     min-width: 150px;
     max-height: 200px;
     border-radius: 15px;
-    border: 1.5px solid black;
     cursor: pointer;
+    background-color: #fff;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
 }
 
 .room-item__name {
     padding: 10px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    word-wrap: break-word;
+    display: flex;
+    justify-content: space-between;
 }
 
 .room-item__description {
     padding: 10px;
+    word-wrap: break-word;
 }

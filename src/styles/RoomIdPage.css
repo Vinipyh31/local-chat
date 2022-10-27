@@ -2,11 +2,8 @@
     padding: 15px;
 }
 
-.back-button {
-    padding: 5px 10px;
-    border: 1px solid black;
-    border-radius: 10px;
-    display: block;
+.btn {
+    margin-bottom: 30px;
 }
 
 .chat-container {
@@ -17,17 +14,26 @@
 
 .chat {
     border-radius: 20px;
-    border: 1px solid black;
-    padding: 15px;
-    min-width: 600px;
+    padding: 30px;
+    width: 600px;
+    background-color: #fff;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .chat__messages {
-    border-radius: 20px;
-    border: 1px solid black;
-    padding: 15px;
     height: 500px;
     overflow-y: scroll;
+    margin-bottom: 10px;
+}
+
+.chat__messages::-webkit-scrollbar {
+    width: 5px;
+    padding: 0;
+}
+
+.chat__messages::-webkit-scrollbar-thumb {
+    background-color: rgba(236, 236, 236, 1);
+    border-radius: 20px;
 }
 
 .message {
@@ -35,6 +41,8 @@
     padding: 10px 10px 10px 25px;
     margin-bottom: 5px;
     border-radius: 15px;
+    word-wrap: break-word;
+    white-space: normal;
 }
 
 .message__sender-name {
@@ -46,4 +54,45 @@
     text-align: right;
     font-size: 12px;
 }
+
+
+.tagged {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px;
+}
+
+.tagged__info {
+    margin-left: 10px;
+    padding-left: 10px;
+    border-left: 2px solid turquoise;
+}
+
+.tagged__info__username {
+    color: turquoise;
+}
+
+.chat__input-text {
+    margin-top: 10px;
+    border-top: 1px solid #d3d9de;
+    display: flex;
+    align-items: center;
+    padding-top: 20px;
+    gap: 10px;
+}
+
+textarea {
+    padding: 10px;
+    resize: none;
+    width: 90%;
+    border: 1px solid #d3d9de;
+    border-radius: 6px;
+}
+
+.btn-send {
+    width: 40px;
+}
+
+
 

@@ -1,11 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
 import MyModal from "../UI/modal/MyModal";
 import {useLocalStorage} from "../hooks/useLocalStorage";
-import {Link} from "react-router-dom";
-import RoomIdPage from "./RoomIdPage";
+import {useNavigate} from "react-router-dom";
 import RoomItem from "../RoomItem";
+import '../../styles/Rooms.css'
 
 const Rooms = () => {
+    const navigate = useNavigate();
     const [modalActive, setModalActive] = useState(false);
     const [rooms, setRooms] = useLocalStorage("rooms", [
         {
@@ -21,7 +22,9 @@ const Rooms = () => {
     ])
     const roomName = useRef();
     const roomDescription = useRef();
-    const [userName, setUserName] = useState();
+    const [deleteMod, setDeleteMod] = useState(false);
+    const [selectedRooms, setSelectedRooms] = useState([])
+
 
     useEffect(() => {
         window.addEventListener('storage', (event) => {
@@ -29,7 +32,7 @@ const Rooms = () => {
                 setRooms(JSON.parse(event.newValue));
             }
         })
-    }, [rooms])
+    }, [])
 
     const createRoom = (e) => {
         e.preventDefault();
@@ -38,30 +41,61 @@ const Rooms = () => {
             name: roomName.current.value,
             description: roomDescription.current.value
         }
+
         setRooms((prev) => [...prev, room])
+        roomName.current.value = "";
+        roomDescription.current.value = "";
         setModalActive(false);
     }
 
-    const deleteRoom = (id) => {
-        setRooms((prev) => prev.filter((room, i) => i !== id))
+    const deleteRooms = () => {
+        setRooms((prev) => prev.filter((room) => !selectedRooms.includes(room.id)));
+        setDeleteMod(false);
+        setSelectedRooms([]);
+    }
+
+    const onRoomClick = (id) => {
+        if (deleteMod) {
+            setSelectedRooms(
+                selectedRooms.includes(id) ? (prev) => prev.filter( roomId => roomId !== id ) :
+                    (prev) => [...prev, id]
+            )
+        } else {
+            navigate(`/room/${id}`)
+        }
     }
 
     return (
         <div>
-            <input type="button" value="Создать комнату" onClick={() => setModalActive(true)}/>
+            <header>
+                <input type="button" className="btn" value="Создать комнату" onClick={() => setModalActive(true)}/>
+
+                {deleteMod ?
+                    <div className="delete-container">
+                        <input type="button" className="btn" value="Применить" onClick={deleteRooms}/>
+                        <input type="button" className="btn" value="Отмена" onClick={() => setDeleteMod(false)}/>
+                    </div>
+                    :
+                    <input type="button" className="btn" value="Удаление" onClick={() => setDeleteMod(true)}/>
+                }
+            </header>
             <div className="rooms-container">
                 {rooms.map((room) =>
-                    <RoomItem key={room.id} room={room}/>
+                    <RoomItem
+                        key={room.id}
+                        room={room}
+                        selected={selectedRooms.includes(room.id)}
+                        onRoomClick={onRoomClick}
+                    />
                 )}
             </div>
             <MyModal active={modalActive} setActive={setModalActive}>
-                <div style={{
-                    display: "flex",
-                    flexDirection: "column"
-                }}>
-                    <input type="text" ref={roomName} placeholder={"Room name"}/>
-                    <input type="" ref={roomDescription} placeholder={"Description"}/>
-                    <input type="submit" onClick={createRoom} value="Создать"/>
+                <div className="modal">
+                    <input className="modal__text-input" type="text" ref={roomName} placeholder={"Название комнаты"}/>
+                    <textarea name="" id="" cols="30" rows="10"
+                              className="modal__text-input description" ref={roomDescription} placeholder={"Описание"}
+                    ></textarea>
+                    <input className="btn" type="submit" onClick={createRoom} value="Создать"/>
                 </div>
             </MyModal>
         </div>
