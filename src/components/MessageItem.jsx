@@ -4,7 +4,6 @@ import {formatDate, formatTaggedStr} from "../utils/strFormating";
 const MessageItem = ({message, onMessageClick}) => {
     return (
         <div
-            key={message.time}
             className="message"
             onContextMenu={(e) => onMessageClick(e, message.time)}
         >

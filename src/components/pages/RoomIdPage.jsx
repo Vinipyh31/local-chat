@@ -127,7 +127,11 @@ const RoomIdPage = () => {
                     <div className="chat__messages" ref={chatMessages}>
                         {messages.filter(message => message.roomId == params.id)
                             .map(message =>
-                                <MessageItem message={message} onMessageClick={onMessageClick}/>
+                                <MessageItem
+                                    key={message.time}
+                                    message={message}
+                                    onMessageClick={onMessageClick}
+                                />
                             )}
                     </div>
                     {taggedMessage &&
