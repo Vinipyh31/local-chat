@@ -3,6 +3,8 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useLocalStorage} from "../hooks/useLocalStorage";
 import '../../styles/RoomIdPage.css'
 import MyModal from "../UI/modal/MyModal";
+import {formatTaggedStr} from "../../utils/strFormating";
+import MessageItem from "../MessageItem";
 
 const RoomIdPage = () => {
     const [messages, setMessages] = useLocalStorage("messages", [
@@ -70,30 +72,6 @@ const RoomIdPage = () => {
             , 0)
     }
 
-    const formatDate = (unixDate) => {
-        const date = new Date(unixDate);
-        const dd = date.getDate();
-        const mm = date.getMonth() + 1;
-        const yy = date.getFullYear();
-        let h = date.getHours();
-        let m = date.getMinutes();
-
-        h = (`${h}`).length === 1 ? `0${h}` : h;
-        m = (`${m}`).length === 1 ? `0${m}` : m;
-
-        return `${h}:${m} ${dd}/${mm}/${yy}`
-    }
-
-    const formatString = (str) => {
-        const maxLenght = 43;
-        if (str.length > maxLenght) {
-            return `${str.slice(0, maxLenght - 3)}...`;
-        } else {
-            return str;
-        }
-    }
-
-
     const addMessage = (senderName, text) => {
         const message = {
             roomId: params.id,
@@ -149,31 +127,7 @@ const RoomIdPage = () => {
                     <div className="chat__messages" ref={chatMessages}>
                         {messages.filter(message => message.roomId == params.id)
                             .map(message =>
-                                <div
-                                    key={message.time}
-                                    className="message"
-                                    onContextMenu={(e) => onMessageClick(e, message.time)}
-                                >
-                                    <div className="message__sender-name">{message.senderName}</div>
-                                    <div className="message__text">
-                                        {message.tagged ?
-                                            <div>
-                                                <div className="tagged">
-                                                    <div className="tagged__info">
-                                                    <span
-                                                        className="tagged__info__username">{message.tagged.senderName}</span>
-                                                        <br/>
-                                                        <span
-                                                            className="tagged__info__text">{formatString(message.tagged.text)}</span>
-                                                    </div>
-
-                                                </div>
-                                                {message.text}
-                                            </div>
-                                            : message.text}
-                                    </div>
-                                    <div className="message__time">{formatDate(message.time)}</div>
-                                </div>
+                                <MessageItem message={message} onMessageClick={onMessageClick}/>
                             )}
                     </div>
                     {taggedMessage &&
@@ -181,7 +135,7 @@ const RoomIdPage = () => {
                             <div className="tagged__info">
                                 <span className="tagged__info__username">{taggedMessage.senderName}</span>
                                 <br/>
-                                <span className="tagged__info__text">{formatString(taggedMessage.text)}</span>
+                                <span className="tagged__info__text">{formatTaggedStr(taggedMessage.text)}</span>
                             </div>
                             <svg onClick={() => {
                                 setTaggedMessage(undefined)
